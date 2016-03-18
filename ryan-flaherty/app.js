@@ -13,8 +13,11 @@ app.use(bodyParser.json());
 
 var showRouter = require(__dirname + '/routes/showRoutes');
 var bandRouter = require(__dirname + '/routes/bandRoutes');
+var queryRouter = require(__dirname + '/routes/queryRoutes');
 app.use('/shows', showRouter);
 app.use('/bands', bandRouter);
+app.use('/query', queryRouter);
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

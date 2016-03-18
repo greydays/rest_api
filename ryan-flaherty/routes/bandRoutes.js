@@ -40,7 +40,6 @@ bandRouter.post('/', (req, res) => {
     }
     res.json(data);
   });
-
 });
 
 bandRouter.put('/:band', (req, res) => {
@@ -71,3 +70,4 @@ bandRouter.delete('/:band', (req, res) => {
   });
 });
 module.exports = bandRouter;
+
