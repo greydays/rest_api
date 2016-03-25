@@ -1,8 +1,13 @@
+'use strict';
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var showSchema = new Schema({
-  date: Date,
+  date: {
+    type: String,
+    required: true
+  },
   venue: String,
   bands: String,
   // regBands: {type: Schema.Types.ObjectId, ref: 'Bands'},
@@ -18,3 +23,4 @@ module.exports = mongoose.model('Show', showSchema);
 //     "regBands": "56ec38f61be261b37d058265"
 //     "cost": "10"
 // }
+
