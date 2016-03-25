@@ -16,7 +16,7 @@ module.exports = (router) => {
     });
   })
 
-  .get('/bands/:band', (req, res) => {
+  .get('/bands/:band', auth, (req, res) => {
     var bandId = req.params.band;
     console.log('/bands GET one route hit');
     Band.findOne({_id: bandId}, function(err, band) {
@@ -44,7 +44,7 @@ module.exports = (router) => {
     });
   })
 
-  .put('/bands/:band', /*auth,*/ (req, res) => {
+  .put('/bands/:band', auth, (req, res) => {
     console.log('/bands PUT route hit');
     var bandId = req.params.band;
     //if the password is being changed, hashes password
@@ -63,7 +63,7 @@ module.exports = (router) => {
     });
   })
 
-  .delete('/bands/:band', (req, res) => {
+  .delete('/bands/:band', auth, (req, res) => {
     console.log('/bands DELETE route hit');
     var bandId = req.params.band;
     Band.findOne({_id: bandId}, function(err, doc) {

@@ -13,14 +13,4 @@ module.exports = (req, res, next) => {
   catch (err) {
     return res.status(418).json({msg: 'stupid teapot'});
   }
-  var Band = require('../models/Band');
-  Band.findOne({_id: decoded._id})
-  .then(band => {
-    req.band = band;
-    next();
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(418).json({msg: err});
-  });
 };
