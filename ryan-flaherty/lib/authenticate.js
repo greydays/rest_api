@@ -13,4 +13,15 @@ module.exports = (req, res, next) => {
   catch (err) {
     return res.status(418).json({msg: 'stupid teapot'});
   }
+  // lookup below conflicts with any route that also looks up Band
+  /*var Band = require('../models/band');
+  User.findOne({_id: decoded._id})
+  .then(band => {
+    req.band = band;
+    next();
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(418).json({msg: err});
+  });*/
 };
