@@ -10,7 +10,7 @@ var showSchema = new Schema({
   },
   venue: String,
   bands: String,
-  // regBands: {type: Schema.Types.ObjectId, ref: 'Bands'},
+  regBands: [{type: Schema.Types.ObjectId, ref: 'Bands'}],
   cost: Number
 });
 
