@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
     next();
   }
   catch (err) {
-    return res.status(418).json({msg: 'stupid teapot'});
+    return res.status(400).json({msg: 'could not decode token'});
   }
   // lookup below conflicts with any route that also looks up Band
   /*var Band = require('../models/band');

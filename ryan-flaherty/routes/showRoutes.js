@@ -1,6 +1,7 @@
 'use strict';
 
 var Show = require('../models/show');
+var auth = require('../lib/authenticate');
 
 module.exports = (router) => {
 
@@ -30,7 +31,7 @@ module.exports = (router) => {
     });
   })
 
-  .post('/shows', (req, res) => {
+  .post('/shows', auth, (req, res) => {
     console.log('/shows POST route hit');
     var show = new Show(req.body);
     show.save(function(err, data) {
@@ -42,7 +43,7 @@ module.exports = (router) => {
     });
   })
 
-  .put('/shows/:show', (req, res) => {
+  .put('/shows/:show', auth, (req, res) => {
     console.log('/shows PUT route hit');
     var showID = req.params.show;
     var newShowInfo = req.body;
@@ -58,15 +59,19 @@ module.exports = (router) => {
     });
   })
 
-  .delete('/shows/:show', (req, res) => {
+  .delete('/shows/:show', auth, (req, res) => {
     console.log('/shows DELETE route hit');
     var showId = req.params.show;
+    var venue;
+    var date;
     Show.findOne({_id: showId}, function(err, doc) {
       if (err){
         res.status(500).json(err);
       }
+      date = doc.date;
+      venue = doc.venue;
       doc.remove();
-      res.json({msg: 'Show was removed'});
+      res.json({msg: 'Show at ' + venue + ' on ' + date + ' was removed'});
     });
   });
 

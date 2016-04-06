@@ -32,7 +32,7 @@ module.exports = (router) => {
     });
   })
 
-  .post('/bands/', (req, res) => {
+  .post('/bands', (req, res) => {
     console.log('/bands POST route hit');
     var band = new Band(req.body);
     band.save(function(err, data) {
@@ -66,12 +66,14 @@ module.exports = (router) => {
   .delete('/bands/:band', auth, (req, res) => {
     console.log('/bands DELETE route hit');
     var bandId = req.params.band;
+    var bandName;
     Band.findOne({_id: bandId}, function(err, doc) {
       if (err){
         res.status(500).json(err);
       }
+      bandName = doc.name;
       doc.remove();
-      res.json({msg: 'Band was removed'});
+      res.json({msg: bandName + ' was removed'});
     });
   })
 
