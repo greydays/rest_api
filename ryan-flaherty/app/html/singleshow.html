@@ -1,0 +1,14 @@
+<section data-ng-controller="AppCtrl" data-ng-init="getShow()">
+  <div>
+    <h1>Wow, what and awesome show!</h1>
+    <div>
+      <h3>Date of show: {{show.date | date: 'EEE, M/dd'}}</h3>
+      <p>Bands: {{show.bands}}</p>
+      <p>Registered Bands: {{show.regBands}}</p>
+      <p>Venue: {{show.venue}}</p>
+      <p>Cover: {{show.cost | currency}}</p>
+      <p>Show Id: {{show._id}}</p>
+    </div>
+  </div>
+</section>
+

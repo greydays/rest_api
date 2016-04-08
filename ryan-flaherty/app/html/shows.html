@@ -1,0 +1,15 @@
+<section data-ng-controller="AppCtrl" data-ng-init="getAllShows()">
+  <div>
+    <h1>Shows!</h1>
+    <div data-ng-repeat="show in shows | orderBy: '-date' : !reverse">
+      <h3>Date of show: {{show.date | date: 'EEE, M/dd'}}</h3>
+      <p>Bands: {{show.bands}}</p>
+      <p>Registered Bands: {{show.regBands}}</p>
+      <p>Venue: {{show.venue}}</p>
+      <p>Cover: {{show.cost | currency}}</p>
+      <a href="#/shows/{{show._id}}">
+        <p>Show Id: {{show._id}}</p>
+      </a>
+    </div>
+  </div>
+</section>
