@@ -1,0 +1,27 @@
+<section data-ng-submit="submitSignUp(newBand)">
+  <h1>New Band Sign Up</h1>
+  <form>
+    <ul>
+      <li>
+        <label for="band_name">Band Name</label>
+        <input data-ng-model="newBand.name" id="band_name" type="text" placeholder="your clever band name here" required>
+      </li>
+      <li>
+        <label for="band_email">email</label>
+        <input data-ng-model="newBand.email" id="band_email" type="email" placeholder="yourband@url.com" required>
+      </li>
+      <li>
+        <label for="band_genre">Genre</label>
+        <input data-ng-model="newBand.genre" id="band_genre" type="text" placeholder="Acapella Grind" required>
+      </li>
+      <li>
+        <label for="band_password">Password</label>
+        <input data-ng-model="newBand.password" id="band_password" type="password" placeholder="************" required>
+      </li>
+      <li>
+        <button class="button" type="submit">Submit</button>
+      </li>
+    </ul>
+  </form>
+
+</section>

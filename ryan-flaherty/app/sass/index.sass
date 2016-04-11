@@ -1,0 +1,57 @@
+html
+  font-family: Arial, Sans-serif
+
+header
+  margin-bottom: 3em
+  nav
+    ul
+      list-style: none
+      display: flex
+      li
+        margin-left: 1em
+
+input
+  height: 2em
+  width: 20em
+  font-size: 1em
+  cursor: pointer
+
+form
+  ul
+    list-style: none
+
+footer
+  margin-top: 3em
+
+//green, set your own color
+$button-color: #00b233 !default
+
+//dark green, the shadow should be a darker shade of the button color
+$button-shadow-color: #007f25 !default
+
+// white for good contrast to green
+$button-text-color: white !default
+$six-pack-buttons-width: 7em
+
+@mixin pushButton ($background-color: $button-color, $color: $button-text-color, $box-shadow: $button-shadow-color, $border-radius: 0.75em)
+  cursor: pointer
+  font-size: 1em
+  min-width: 3em
+  border: none
+  border-radius: $border-radius
+  padding: 0.5em
+  text-transform: uppercase
+  background-color: $background-color
+  color: $color
+  box-shadow: 0 4px 0 $box-shadow
+  -webkit-transition: all 0.1s linear
+  transition: all 0.1s linear
+  &:focus
+    outline: 0
+  &:active
+    box-shadow: 0 1px 0 $box-shadow
+    -webkit-transform: translateY(3px)
+    transform: translateY(3px)
+
+.button
+  @include pushButton

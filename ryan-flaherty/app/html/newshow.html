@@ -1,0 +1,31 @@
+<section  data-ng-submit= "postShow(newShow)">
+  <form>
+    <ul>
+      <li>
+        <label for="show_date">Date</label>
+        <input data-ng-model="newShow.date" id="show_date" type="date" required>
+      </li>
+      <li>
+        <label for="show_venue">Venue</label>
+        <input data-ng-model="newShow.venue" id="show_venue" type="text" placeholder="venue name" required>
+      </li>
+      <li>
+        <label for="show_bands">Bands</label>
+        <input data-ng-model="newShow.bands" id="show_bands" type="text" placeholder="list bands, comma separated" required>
+      </li>
+      <li>
+        <label for="show_regBands">Registered Bands</label>
+        <input type="text" id="show_regBands" data-ng-model="newShow.regBands" placeholder="band IDs, comma separated">
+      </li>
+      <li>
+        <label for="show_cost">Cover Charge $</label>
+        <input type="tel" id="show_cost" data-ng-model="newShow.cost" required placeholder="10.00">
+      <li>
+        <button class="button" type="submit">Submit</button>
+      </li>
+    </ul>
+  </form>
+</section>
+
+
+

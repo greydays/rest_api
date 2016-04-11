@@ -1,0 +1,19 @@
+<section data-ng-submit="submitSignIn(band)">
+  <h1>Login</h1>
+  <form>
+    <ul>
+      <li>
+        <label for="band_email">email</label>
+        <input data-ng-model="band.email" id="band_email" type="email" placeholder="you@url.com" required>
+      </li>
+      <li>
+        <label for="band_password">Password</label>
+        <input data-ng-model="band.password" id="band_password" type="password" placeholder="************" required>
+      </li>
+      <li>
+        <button class="button" type="submit">Submit</button>
+      </li>
+    </ul>
+  </form>
+</section>
+

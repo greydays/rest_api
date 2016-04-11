@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var showSchema = new Schema({
   date: {
-    type: String,
+    type: Date,
     required: true
   },
   venue: String,
@@ -15,3 +15,4 @@ var showSchema = new Schema({
 });
 
 module.exports = mongoose.model('Show', showSchema);
+
