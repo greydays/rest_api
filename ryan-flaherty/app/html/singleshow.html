@@ -10,34 +10,33 @@
       <p>Show Id: {{show._id}}</p>
       <p>
         <button data-ng-click="edit=true">Edit</button>
-        <button data-ng-click="shit()">Shit</button>
       </p>
     </div>
-     <form data-ng-show="edit" data-ng-submit="putShow(show)">
+     <form data-ng-show="edit">
       <ul>
         <li>
           <label for="">Date of show: </label>
-          <input type='date' data-ng-model="show.date">
+          <input type='date' data-ng-model="updateShow.date">
         </li>
         <li>
           <label for="">Bands: </label>
-          <input type="text" data-ng-model="show.bands">
+          <input type="text" data-ng-model="updateShow.bands">
         </li>
         <li>
           <label for="">Registered Bands: </label>
-        <input type="text" data-ng-model="show.regBands">
+        <input type="text" data-ng-model="updateShow.regBands">
         </li>
         <li>
           <label for="">Venue: </label>
-          <input type="text" data-ng-model="show.venue">
+          <input type="text" data-ng-model="updateShow.venue">
         </li>
         <li>
           <label for="">Cover: $</label>
-          <input type="tel" data-ng-model="show.cost">
+          <input type="tel" data-ng-model="updateShow.cost">
         </li>
         <li>
-          <button type="submit">Save</button>
-          <button data-ng-click="edit=false">Cancel</button>
+          <button data-ng-click="putShow(updateShow)">Save</button>
+          <button data-ng-click="cancel()">Cancel</button>
           <button data-ng-click="delShow()">Delete</button>
         </li>
     </ul>
