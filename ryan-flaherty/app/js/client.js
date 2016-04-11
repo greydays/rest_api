@@ -7,6 +7,7 @@ var app = angular.module('app', ['ngRoute']); // eslint-disable-line
 
 require('./controllers/appController')(app);
 require('./controllers/headerCtrl')(app);
+require('./controllers/editShowCtrl')(app);
 
 require('./directives/appDirectives')(app);
 

@@ -8,7 +8,7 @@ module.exports = function(app) {
       url = url.split('/');
       var id = url[url.length - 1];
       $http.get('/shows/' + id).success(function(response) {
-        $scope.blog = response;
+        $scope.show = response;
       });
     };
 
