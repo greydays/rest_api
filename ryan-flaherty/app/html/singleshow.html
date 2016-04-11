@@ -1,4 +1,4 @@
-<section data-ng-controller="editShowCtrl as dis" data-ng-init="getShow()">
+<section data-ng-controller="editShowCtrl" data-ng-init="getShow()">
   <div>
     <h1>Wow, what and awesome show!</h1>
     <div data-ng-hide="edit">
@@ -8,13 +8,16 @@
       <p>Venue: {{show.venue}}</p>
       <p>Cover: {{show.cost | currency}}</p>
       <p>Show Id: {{show._id}}</p>
-      <p><button data-ng-click="edit=true">Edit</button></p>
+      <p>
+        <button data-ng-click="edit=true">Edit</button>
+        <button data-ng-click="shit()">Shit</button>
+      </p>
     </div>
      <form data-ng-show="edit" data-ng-submit="putShow(show)">
       <ul>
         <li>
-          <!-- <label for="">Date of show: </label>
-          <input type='date' data-ng-model="show.date"> -->
+          <label for="">Date of show: </label>
+          <input type='date' data-ng-model="show.date">
         </li>
         <li>
           <label for="">Bands: </label>
@@ -35,7 +38,7 @@
         <li>
           <button type="submit">Save</button>
           <button data-ng-click="edit=false">Cancel</button>
-          <button>Delete</button>
+          <button data-ng-click="delShow()">Delete</button>
         </li>
     </ul>
     </form>
