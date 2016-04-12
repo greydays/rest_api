@@ -6,7 +6,6 @@ module.exports = function(app) {
     this.logMeOut = function() {
       Auth.signOut();
       $location.path('/login');
-      console.log('signed out');
     };
 
   }]);

@@ -24,12 +24,6 @@ module.exports = function(app) {
       });
     };
 
-/*    $scope.logMeOut = function() {
-      Auth.signOut();
-      $location.path('/login');
-      console.log('signed out');
-    };*/
-
     $scope.signup = true;
     $scope.submitSignUp = function(band) {
       Auth.createBand(band, function() {

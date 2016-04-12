@@ -3,42 +3,42 @@
 module.exports = function(app) {
   app.controller('editShowCtrl', ['$scope', '$location', '$http', 'Auth', function($scope, $location, $http, Auth) {
 
-    $scope.edit = false;
-    $scope.updateShow = {};
-    $scope.cancelShow = {};
+    var vm = this;
+    vm.edit = false;
+    vm.cancelShow = {};
 
-    $scope.getShow = function() {
+    vm.getShow = function() {
       var url = $location.path();
       url = url.split('/');
       var id = url[url.length - 1];
       $http.get('/shows/' + id).success(function(response) {
-        $scope.show = response;
-        $scope.show.date = new Date($scope.show.date);
-        $scope.updateShow = $scope.show;
-        $scope.cancelShow = angular.copy($scope.show);
+        vm.show = response;
+        vm.show.date = new Date(vm.show.date);
+        vm.updateShow = vm.show;
+        vm.cancelShow = angular.copy(vm.show);
       });
     };
 
-    $scope.putShow = function(updateShow) {
+    vm.putShow = function(updateShow) {
       $http({
         method: 'PUT',
-        url: '/shows/' + $scope.show._id,
+        url: '/shows/' + vm.show._id,
         headers: {
           'Authorization': 'Token ' + Auth.getToken()
         },
-        data: $scope.show
+        data: updateShow
       })
       .success(function (data){
         console.log(data);
-        $scope.edit = false;
-        $scope.message = 'Show Updated';
+        vm.edit = false;
+        vm.message = 'Show Updated';
       });
     };
 
-    $scope.delShow = function() {
+    vm.delShow = function() {
       $http({
         method: 'DELETE',
-        url: '/shows/' + $scope.show._id,
+        url: '/shows/' + vm.show._id,
         headers: {
           'Authorization': 'Token ' + Auth.getToken()
         }
@@ -49,13 +49,13 @@ module.exports = function(app) {
       });
     };
 
-    $scope.cancel = function(){
-      $scope.edit = false;
-      $scope.show.cost = $scope.cancelShow.cost;
-      $scope.show.date = $scope.cancelShow.date;
-      $scope.show.bands = $scope.cancelShow.bands;
-      $scope.show.regBands = $scope.cancelShow.regBands;
-      $scope.show.venue = $scope.cancelShow.venue;
+    vm.cancel = function(){
+      vm.edit = false;
+      vm.show.cost = vm.cancelShow.cost;
+      vm.show.date = vm.cancelShow.date;
+      vm.show.bands = vm.cancelShow.bands;
+      vm.show.regBands = vm.cancelShow.regBands;
+      vm.show.venue = vm.cancelShow.venue;
     };
 
   }]);
