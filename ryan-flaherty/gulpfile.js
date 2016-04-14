@@ -11,8 +11,9 @@ var autoprefixer = require('gulp-autoprefixer');
 
 var paths = {
   js: ['*.js', 'app/**/*.js'],
-  html: ['app/**/*.html'],
-  css: ['app/**/*.scss', 'app/**/*.sass']
+  html: 'app/**/*.html',
+  css: ['app/**/*.scss', 'app/**/*.sass'],
+  e2eTest: '/test/*_spec.js'
 };
 
 gulp.task('lint', function(){
@@ -32,7 +33,7 @@ gulp.task('build:css', function() {
 });
 
 gulp.task('build:html', function() {
-  gulp.src('app/**/*.html')
+  gulp.src(paths.html)
   .pipe(gulp.dest('public/'));
 });
 
@@ -49,6 +50,12 @@ gulp.task('build:js', function() {
 gulp.task('clean', function() {
   return gulp.src('build', {read: false})
     .pipe(clean({force: true}));
+});
+
+gulp.task('bundle:test', () => {
+  return gulp.src(paths.e2eTest)
+    .pipe(webpack({output: {filename: 'test_bundle.js'}}))
+    .pipe(gulp.dest('./clientTest'));
 });
 
 gulp.task('watch:css', function() {
