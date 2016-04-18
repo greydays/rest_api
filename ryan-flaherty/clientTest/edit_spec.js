@@ -8,7 +8,11 @@ describe('it should test something', () => {
   });
   beforeEach(angular.mock.module('app'))
   beforeEach(angular.mock.inject(function( $controller) {
-    editShowController = $controller('editShowCtrl')
+    editShowController = $controller('editShowCtrl', {$location: {
+      path: function() {
+        return '/uniqueId'
+      }
+    }})
   }));
   it('should construct a controller', () => {
     expect(typeof editShowController).toBe('object');
@@ -31,7 +35,7 @@ describe('it should test something', () => {
 
     it('should get a show', () => {
       var newDate = new Date();
-      $httpBackend.expectGET('http://localhost:3000/shows/uniqueId')
+      $httpBackend.expectGET('shows/uniqueId')
         .respond(200, {show: {date: newDate, venue: 'testHouse', bands: 'Murder Trout, The Hookup Drones, Cameltoesocks', cost: 10, _id: 'uniqueId'}});
       editShowController.getShow();
       $httpBackend.flush();
