@@ -36,7 +36,7 @@ describe('it should test something', () => {
 
     it('should get all shows', () => {
       var newDate = new Date();
-      $httpBackend.expectGET('http://localhost:3000/shows')
+      $httpBackend.expectGET('/shows')
         .respond(200, {show: [{date: newDate, venue: 'testHouse', bands: 'Murder Trout, The Hookup Drones, Cameltoesocks', cost: 10, _id: 'uniqueid'}]});
       scope.getAllShows();
       $httpBackend.flush();
