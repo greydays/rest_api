@@ -13,7 +13,7 @@ var paths = {
   js: ['*.js', 'app/**/*.js'],
   html: 'app/**/*.html',
   css: ['app/**/*.scss', 'app/**/*.sass'],
-  e2eTest: '/test/*_spec.js'
+  e2eTest: 'clientTest/*_spec.js'
 };
 
 gulp.task('lint', function(){

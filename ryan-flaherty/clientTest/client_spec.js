@@ -1,41 +1,60 @@
-require('../app/client.js');
-const angular = require('angular');
+require('../public/bundle.js');
 require('angular-mocks');
 
 describe('it should test something', () => {
-  // var peopleController;
+  var appCtrl;
+  var scope;
   it('should have a test', () => {
     expect(false).toBe(false);
   });
-  /*beforeEach(angular.mock.module('PeopleApp'))
-  beforeEach(angular.mock.inject(function($controller) {
-    peopleController = $controller('PeopleController');
-  }))
+  beforeEach(angular.mock.module('app'))
+  beforeEach(angular.mock.inject(function($rootScope, $controller) {
+    scope = $rootScope.$new();
+    appCtrl = $controller('AppCtrl', {
+      $scope: scope
+    });
+  }));
   it('should construct a controller', () => {
-    expect(typeof peopleController).toBe('object');
-    expect(peopleController.people[0]).toBe('person');
-    expect(typeof peopleController.getPeople).toBe('function');
-  })
+    expect(typeof appCtrl).toBe('object');
+    // expect(appCtrl.people[0]).toBe('person');
+    expect(typeof scope.getAllShows).toBe('function');
+  });
   describe('REST tests', () => {
     var $httpBackend;
-    beforeEach(angular.mock.inject(function(_$httpBackend_) {
+    var $window;
+    beforeEach(angular.mock.inject(function(_$httpBackend_, _$window_) {
       $httpBackend = _$httpBackend_;
+      $window = _$window_;
+      $window.localStorage = {
+        token: 'testAuthToken'
+      };
     }));
     afterEach(() => {
       $httpBackend.verifyNoOutstandingExpectation();
       $httpBackend.verifyNoOutstandingRequest();
     })
 
-    it('should get all people', () => {
-      $httpBackend.expectGET('http://localhost:3000/people')
-        .respond(200, {people: [{name: 'test person'}]});
-      peopleController.getPeople();
+    it('should get all shows', () => {
+      var newDate = new Date();
+      $httpBackend.expectGET('http://localhost:3000/shows')
+        .respond(200, {show: [{date: newDate, venue: 'testHouse', bands: 'Murder Trout, The Hookup Drones, Cameltoesocks', cost: 10, _id: 'uniqueid'}]});
+      scope.getAllShows();
       $httpBackend.flush();
-      expect(peopleController.people.length).toBeGreaterThan(0);
-      expect(peopleController.people[0].name).toBe('test person');
+      expect(scope.show.length).toBeGreaterThan(0);
+      expect(scope.show[0].venue).toBe('testHouse');
     });
 
-    it('should create a new person', () => {
+/*    it('should POST a show', () => {
+      var newDate = new Date();
+      $httpBackend.expectPOST('http://localhost:3000/shows')
+        .respond(200, {show: [{date: newDate, venue: 'testHouse', bands: 'Murder Trout, The Hookup Drones, Cameltoesocks', cost: 10, _id: 'uniqueid'}]});
+      scope.postShow({date: newDate, venue: 'testHouse', bands: 'Murder Trout, The Hookup Drones, Cameltoesocks', cost: 10});
+      $httpBackend.flush();
+      expect(scope.show.length).toBeGreaterThan(0);
+      expect(scope.show[0].venue).toBe('testHouse');
+    });*/
+
+    /*it('should create a new person', () => {
       $httpBackend.expectPOST('http://localhost:3000/people', {name: 'test person'})
         .respond(200, {name: 'test person', age: 18, _id:'uniqueid'});
       peopleController.createPerson({name: 'test person'})
@@ -63,6 +82,6 @@ describe('it should test something', () => {
       peopleController.updatePerson(updatePerson);
       $httpBackend.flush();
       expect(updatePerson.editing).toBe(false);
-    });
-  });*/
+    });*/
+  });
 });

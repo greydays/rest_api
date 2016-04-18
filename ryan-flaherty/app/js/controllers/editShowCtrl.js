@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('editShowCtrl', ['$scope', '$location', '$http', 'Auth', function($scope, $location, $http, Auth) {
+  app.controller('editShowCtrl', ['$location', '$http', 'Auth', function($location, $http, Auth) {
 
     var vm = this;
     vm.edit = false;
@@ -11,7 +11,7 @@ module.exports = function(app) {
       var url = $location.path();
       url = url.split('/');
       var id = url[url.length - 1];
-      $http.get('/shows/' + id).success(function(response) {
+      $http.get('shows/' + id).success(function(response) {
         vm.show = response;
         vm.show.date = new Date(vm.show.date);
         vm.updateShow = vm.show;
