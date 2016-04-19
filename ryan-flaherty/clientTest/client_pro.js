@@ -4,35 +4,32 @@
   ~$ protractor protractor-conf.js
 */
 
-describe('our first angular test homepage', function() {
-  var firstName = element(by.model('namectrl.firstName'))
-  var lastName = element(by.model('namectrl.lastName'))
-  var updateButton = element(by.buttonText('Update Name'))
+describe('restAPI E2E:', function() {
 
   beforeEach(function() {
     browser.get('http://localhost:8000/')
-  })
+  });
 
   it('should have the correct title', function() {
-    expect(browser.getTitle()).toEqual('My First Angular Test')
-  })
+    expect(browser.getTitle()).toEqual('Rest API with Angular')
+  });
+  it('should link to a view', function() {
+    element(by.css('a[href="#/login"')).click();
+    expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
+    element(by.css('a[href="#/shows"')).click();
+    expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/shows');
+    element(by.css('a[href="#/newshow"')).click();
+    expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/newshow');
+    element(by.css('a[href="#/newband"')).click();
+    expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/newband');
+  });
 
-  it('should have a default name', function() {
-    expect(firstName.getAttribute('value')).toEqual('Peggy')
-    expect(lastName.getAttribute('value')).toEqual('Hill')
-    expect(element(by.binding('namectrl.fullName')).getText()).toEqual('Peggy Hill')
-  })
+  var shows = element.all(by.repeater('show in shows'));
+  it('should display a show', function() {
+    element(by.css('a[href="#/shows"')).click();
+    expect(shows.count()).toBe(1);
+    expect(shows.get(0).venue.getText()).toEqual('test palace');
 
-  it('can update the name', function() {
-    firstName.clear()
-    firstName.sendKeys('Bobby')
-    lastName.clear()
-    lastName.sendKeys('UstaHill')
-    updateButton.click()
+  });
 
-    expect(firstName.getAttribute('value')).toEqual('Bobby')
-    expect(lastName.getAttribute('value')).toEqual('UstaHill')
-    expect(element(by.binding('namectrl.fullName')).getText()).toEqual('Bobby UstaHill')
-  })
-
-})
+});
