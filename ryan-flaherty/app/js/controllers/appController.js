@@ -3,6 +3,8 @@
 module.exports = function(app) {
   app.controller('AppCtrl', ['$scope', '$http', '$location', 'Auth', function($scope, $http, $location, Auth) {
 
+    var host = 'http://localhost:3000';
+
     $scope.getShow = function() {
       var url = $location.path();
       url = url.split('/');
@@ -23,12 +25,6 @@ module.exports = function(app) {
         $location.path('/');
       });
     };
-
-/*    $scope.logMeOut = function() {
-      Auth.signOut();
-      $location.path('/login');
-      console.log('signed out');
-    };*/
 
     $scope.signup = true;
     $scope.submitSignUp = function(band) {
