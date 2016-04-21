@@ -1,11 +1,12 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('editShowCtrl', ['$location', '$http', 'Auth', function($location, $http, Auth) {
+  app.controller('editShowCtrl', ['$location', '$http', 'Auth', 'restService', function($location, $http, Auth, restService) {
 
     var vm = this;
     vm.edit = false;
     vm.cancelShow = {};
+    var showResource = restService('shows');
 
     vm.getShow = function() {
       var url = $location.path();
@@ -20,14 +21,7 @@ module.exports = function(app) {
     };
 
     vm.putShow = function(updateShow) {
-      $http({
-        method: 'PUT',
-        url: '/shows/' + vm.show._id,
-        headers: {
-          'Authorization': 'Token ' + Auth.getToken()
-        },
-        data: updateShow
-      })
+      showResource.update(updateShow)
       .success(function (data){
         console.log(data);
         vm.edit = false;
@@ -36,13 +30,7 @@ module.exports = function(app) {
     };
 
     vm.delShow = function() {
-      $http({
-        method: 'DELETE',
-        url: '/shows/' + vm.show._id,
-        headers: {
-          'Authorization': 'Token ' + Auth.getToken()
-        }
-      })
+      showResource.remove(vm.show)
       .success(function (data){
         console.log(data);
         $location.path('/');

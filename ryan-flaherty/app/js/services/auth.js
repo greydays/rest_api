@@ -3,13 +3,14 @@
 module.exports = function(app) {
   app.factory('Auth', ['$http', '$window', function($http, $window) {
     var token;
-    var band;
+    var bandName;
     var auth = {
       createBand: function(band, cb) {
         cb = cb || function(){};
         $http.post('/bands', band)
           .then(function(res) {
             token = $window.localStorage.token = res.data.token;
+            bandName = $window.localStorage.bandName = res.data.name;
             cb(null);
           }, function(res) {
             console.log(res);
@@ -27,6 +28,7 @@ module.exports = function(app) {
         })
           .then(function(res) {
             token = $window.localStorage.token = res.data.token;
+            bandName = $window.localStorage.bandName = res.data.name;
             cb(null);
           }, function(res) {
             console.log(res);
@@ -37,10 +39,15 @@ module.exports = function(app) {
         token = token || $window.localStorage.token;
         return token;
       },
+      getBandName: function() {
+        bandName = bandName || $window.localStorage.bandName;
+        return bandName;
+      },
       signOut: function(cb) {
         $window.localStorage.token = null;
+        $window.localStorage.bandName = null;
         token = null;
-        band = null;
+        bandName = null;
         if (cb) cb();
       }
     };

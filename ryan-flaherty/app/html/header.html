@@ -1,12 +1,13 @@
 <header>
   <h1 class="header_logo">Shows and shows</h1>
   <nav>
-    <ul>
+    <ul data-ng-controller="headerCtrl as header" data-ng-init="header.checkBand()">
       <li><a href="#/shows">Shows</a></li>
       <li><a href="#/newshow">New Show</a></li>
-      <li><a href="#/login">Login</a></li>
-      <li><a href="#/newband">New Band</a></li>
-      <li data-ng-controller="headerCtrl as header"><a href ng-click="header.logMeOut()">Log Out</a></li>
+      <li><a href="#/newband" data-ng-hide="header.isLoggedIn=true">New Band</a></li>
+      <li><a href="#/login" data-ng-hide="header.isLoggedIn=true">Login</a></li>
+      <li><a href="#/profile" data-ng-show="header.isLoggedIn=true">Profile</a></li>
+      <li><a href data-ng-show="header.isLoggedIn=true" ng-click="header.logMeOut()">Log Out</a></li>
     </ul>
   </nav>
 </header>

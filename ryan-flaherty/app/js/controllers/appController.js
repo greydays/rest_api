@@ -1,9 +1,11 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('AppCtrl', ['$scope', '$http', '$location', 'Auth', function($scope, $http, $location, Auth) {
+  app.controller('AppCtrl', ['$scope', '$http', '$location', 'Auth', 'restService', function($scope, $http, $location, Auth, restService) {
 
-    var host = 'http://localhost:3000';
+    var mainRoute = 'http://localhost:3000';
+    var showResource = restService('shows');
+
     var testShow = [{
       date: 'Mon Apr 30 2016 18:00:00 GMT-0700 (PDT)',
       venue: 'test palace',
@@ -19,7 +21,7 @@ module.exports = function(app) {
       $http.get('/shows/' + id)
       .success(function(response) {
         $scope.show = response;
-      })
+      });
     };
 
     $scope.getAllShows = function() {
@@ -43,14 +45,7 @@ module.exports = function(app) {
     };
 
     $scope.postShow = function(newShow) {
-      $http({
-        method: 'POST',
-        url: '/shows',
-        headers: {
-          'Authorization': 'Token ' + Auth.getToken()
-        },
-        data: newShow
-      })
+      showResource.create(newShow)
       .success(function (data){
         console.log(data);
         $location.path('/');

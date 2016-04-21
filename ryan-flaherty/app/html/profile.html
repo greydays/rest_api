@@ -1,0 +1,41 @@
+<section data-ng-controller="BandCtrl as bandctrl" data-ng-init="bandctrl.getBand()">
+  <div>
+    <h1>Artist Profile</h1>
+    <div data-ng-hide="bandctrl.edit">
+      <p>Artist Name: {{bandctrl.band.name}}</p>
+      <p>Email: {{bandctrl.band.email}}</p>
+      <p>Password: {{bandctrl.band.password}}</p>
+      <p>Genre: {{bandctrl.band.genre}}</p>
+      <p>Band Id: {{bandctrl.band._id}}</p>
+      <p>
+        <button class="button" data-ng-show="bandctrl.editAble=true" data-ng-click="bandctrl.edit=true">Edit</button>
+      </p>
+    </div>
+     <form data-ng-show="bandctrl.edit">
+      <ul>
+        <li>
+          <label for="">Artist Name: </label>
+          <input type="text" data-ng-model="bandctrl.updateBand.name">
+        </li>
+        <li>
+          <label for="">Email: </label>
+          <input type="email" data-ng-model="bandctrl.updateBand.email">
+        </li>
+        <li>
+          <label for="">Password: </label>
+          <input type="text" data-ng-model="bandctrl.updateBand.password">
+        </li>
+        <li>
+          <label for="">Genre: </label>
+          <input type="text" data-ng-model="bandctrl.updateBand.genre">
+        </li>
+        <li>
+          <button class="push-button-left" data-ng-click="bandctrl.putBand(bandctrl.updateBand)">Save</button>
+          <button class="push-button-center" data-ng-click="bandctrl.cancel()">Cancel</button>
+          <button class="push-button-right" data-ng-click="bandctrl.delBand()">Delete</button>
+        </li>
+    </ul>
+    </form>
+  </div>
+</section>
+

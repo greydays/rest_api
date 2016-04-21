@@ -8,10 +8,12 @@ var app = angular.module('app', ['ngRoute']); // eslint-disable-line
 require('./controllers/appController')(app);
 require('./controllers/headerCtrl')(app);
 require('./controllers/editShowCtrl')(app);
+require('./controllers/bandCtrl')(app);
 
 require('./directives/appDirectives')(app);
 
 require('./services/auth')(app);
+require('./services/restService')(app);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -21,6 +23,8 @@ app.config(['$routeProvider', function($routeProvider) {
     .when('/login', {templateUrl: 'html/login.html'})
     .when('/newshow', {templateUrl: 'html/newshow.html'})
     .when('/', {templateUrl: 'html/shows.html'})
+    .when('/profile', {templateUrl: 'html/profile.html'})
+    .when('/bands/:_id', {templateUrl: 'html/profile.html'})
     .otherwise({redirectTo: '/shows'});
 }]);
 
