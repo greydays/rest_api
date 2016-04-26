@@ -3,6 +3,7 @@
 module.exports = function(app) {
   app.controller('editShowCtrl', ['$location', '$http', 'Auth', 'restService', function($location, $http, Auth, restService) {
 
+    var mainRoute = 'http://localhost:3000';
     var vm = this;
     vm.edit = false;
     vm.cancelShow = {};
@@ -12,7 +13,7 @@ module.exports = function(app) {
       var url = $location.path();
       url = url.split('/');
       var id = url[url.length - 1];
-      $http.get('shows/' + id).success(function(response) {
+      $http.get(mainRoute + '/shows/' + id).success(function(response) {
         vm.show = response;
         vm.show.date = new Date(vm.show.date);
         vm.updateShow = vm.show;

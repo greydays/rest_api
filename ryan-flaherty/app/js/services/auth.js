@@ -2,12 +2,13 @@
 
 module.exports = function(app) {
   app.factory('Auth', ['$http', '$window', function($http, $window) {
+    var mainRoute = 'http://localhost:3000';
     var token;
     var bandName;
     var auth = {
       createBand: function(band, cb) {
         cb = cb || function(){};
-        $http.post('/bands', band)
+        $http.post(mainRoute + '/bands', band)
           .then(function(res) {
             token = $window.localStorage.token = res.data.token;
             bandName = $window.localStorage.bandName = res.data.name;
@@ -21,7 +22,7 @@ module.exports = function(app) {
         cb = cb || function(){};
         $http({
           method: 'POST',
-          url: '/login',
+          url: mainRoute + '/login',
           headers: {
             'Authorization': 'Basic ' + btoa((band.email + ':' + band.password))
           }

@@ -1,6 +1,6 @@
-<section data-ng-submit="submitSignUp(newBand)">
+<section data-ng-controller="AppCtrl">
   <h1>New Band Sign Up</h1>
-  <form>
+  <form data-ng-submit="submitSignUp(newBand)">
     <ul>
       <li>
         <label for="band_name">Band Name</label>

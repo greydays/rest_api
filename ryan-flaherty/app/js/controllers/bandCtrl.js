@@ -9,12 +9,18 @@ module.exports = function(app) {
     vm.cancelEdit = {};
     var mainRoute = 'http://localhost:3000';
     var bandResource = restService('bands');
+    vm.bandName = Auth.getBandName() || null;
 
+//if logged profile vs bandid
     vm.getBand = function() {
-      var url = $location.path();
-      url = url.split('/');
-      var id = url[url.length - 1];
-      $http.get('/bands/' + id)
+      $http({
+        method: 'GET',
+        url: mainRoute + '/bands/profile',
+        headers: {
+          'Authorization': 'Token ' + Auth.getToken()
+        },
+        data: {bandName: vm.bandName}
+      })
       .success(function(response) {
         vm.band = response;
         vm.updateBand = vm.band;
@@ -23,7 +29,7 @@ module.exports = function(app) {
     };
 
     vm.checkBand = function() {
-      if (Auth.getBandName() === vm.band.name) vm.editAble = true;
+      if (vm.bandName === vm.band.name) vm.editAble = true;
     };
 
     vm.putBand = function(updateBand) {

@@ -18,14 +18,14 @@ module.exports = function(app) {
       var url = $location.path();
       url = url.split('/');
       var id = url[url.length - 1];
-      $http.get('/shows/' + id)
+      $http.get(mainRoute + '/shows/' + id)
       .success(function(response) {
         $scope.show = response;
       });
     };
 
     $scope.getAllShows = function() {
-      $http.get('/shows').success(function(response){
+      $http.get(mainRoute + '/shows').success(function(response){
         if (response.length == 0) $scope.shows = testShow;
         else $scope.shows = response;
       });
