@@ -6,9 +6,10 @@ module.exports = function(app) {
     return {
       restrict: 'A',
       replace: true,
-      templateUrl: '/html/header.html',
-      transclude: true
+      templateUrl: '/html/header.html'
     };
   });
+
 };
+
 

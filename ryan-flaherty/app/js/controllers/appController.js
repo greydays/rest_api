@@ -31,16 +31,10 @@ module.exports = function(app) {
       });
     };
 
-    $scope.submitSignIn = function(band) {
-      Auth.signIn(band, function() {
-        $location.path('/');
-      });
-    };
-
     $scope.signup = true;
     $scope.submitSignUp = function(band) {
       Auth.createBand(band, function() {
-        $location.path('/login');
+        $location.path('/newshow');
       });
     };
 
