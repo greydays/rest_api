@@ -1,6 +1,6 @@
-<section data-ng-submit="submitSignIn(band)">
+<section data-ng-controller="AppCtrl">
   <h1>Login</h1>
-  <form>
+  <form data-ng-submit="submitSignIn(band)">
     <ul>
       <li>
         <label for="band_email">email</label>

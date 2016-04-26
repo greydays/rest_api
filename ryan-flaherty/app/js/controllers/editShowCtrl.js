@@ -1,61 +1,50 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('editShowCtrl', ['$scope', '$location', '$http', 'Auth', function($scope, $location, $http, Auth) {
+  app.controller('editShowCtrl', ['$location', '$http', 'Auth', 'restService', function($location, $http, Auth, restService) {
 
-    $scope.edit = false;
-    $scope.updateShow = {};
-    $scope.cancelShow = {};
+    var mainRoute = 'http://localhost:3000';
+    var vm = this;
+    vm.edit = false;
+    vm.cancelShow = {};
+    var showResource = restService('shows');
 
-    $scope.getShow = function() {
+    vm.getShow = function() {
       var url = $location.path();
       url = url.split('/');
       var id = url[url.length - 1];
-      $http.get('/shows/' + id).success(function(response) {
-        $scope.show = response;
-        $scope.show.date = new Date($scope.show.date);
-        $scope.updateShow = $scope.show;
-        $scope.cancelShow = angular.copy($scope.show);
+      $http.get(mainRoute + '/shows/' + id).success(function(response) {
+        vm.show = response;
+        vm.show.date = new Date(vm.show.date);
+        vm.updateShow = vm.show;
+        vm.cancelShow = angular.copy(vm.show);
       });
     };
 
-    $scope.putShow = function(updateShow) {
-      $http({
-        method: 'PUT',
-        url: '/shows/' + $scope.show._id,
-        headers: {
-          'Authorization': 'Token ' + Auth.getToken()
-        },
-        data: $scope.show
-      })
+    vm.putShow = function(updateShow) {
+      showResource.update(updateShow)
       .success(function (data){
         console.log(data);
-        $scope.edit = false;
-        $scope.message = 'Show Updated';
+        vm.edit = false;
+        vm.message = 'Show Updated';
       });
     };
 
-    $scope.delShow = function() {
-      $http({
-        method: 'DELETE',
-        url: '/shows/' + $scope.show._id,
-        headers: {
-          'Authorization': 'Token ' + Auth.getToken()
-        }
-      })
+    vm.delShow = function() {
+      showResource.remove(vm.show)
       .success(function (data){
         console.log(data);
         $location.path('/');
       });
     };
 
-    $scope.cancel = function(){
-      $scope.edit = false;
-      $scope.show.cost = $scope.cancelShow.cost;
-      $scope.show.date = $scope.cancelShow.date;
-      $scope.show.bands = $scope.cancelShow.bands;
-      $scope.show.regBands = $scope.cancelShow.regBands;
-      $scope.show.venue = $scope.cancelShow.venue;
+    vm.cancel = function(){
+      vm.edit = false;
+      vm.show.cost = vm.cancelShow.cost;
+      vm.show.date = vm.cancelShow.date;
+      vm.show.bands = vm.cancelShow.bands;
+      vm.show.regBands = vm.cancelShow.regBands;
+      vm.show.venue = vm.cancelShow.venue;
     };
 
   }]);

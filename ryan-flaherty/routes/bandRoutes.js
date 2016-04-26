@@ -16,8 +16,8 @@ module.exports = (router) => {
     });
   })
 
-  .get('/bands/:band', auth, (req, res) => {
-    var bandId = req.params.band;
+  .get('/bands/:band', (req, res) => {
+    var bandId = req.body.band;
     console.log('/bands GET one route hit');
     Band.findOne({_id: bandId}, function(err, band) {
       if (err) {
@@ -25,9 +25,31 @@ module.exports = (router) => {
         res.status(500).json({msg: 'Internal server error'});
       }
       if (band) {
-        res.json(band);
+        res.json({
+          name: band.name,
+          email: band.email,
+          genre: band.genre,
+          shows: band.shows,
+          _id: band._id
+        });
       } else {
         res.status(404).json({msg: 'Unable to locate ' + bandId});
+      }
+    });
+  })
+
+  .get('/bands/profile', auth, (req, res) => {
+    var bandName = req.body.bandName;
+    console.log('/bands GET profile route hit');
+    Band.findOne({name: bandName}, function(err, band) {
+      if (err) {
+        console.log(err);
+        res.status(500).json({msg: 'Internal server error'});
+      }
+      if (band) {
+        res.json(band);
+      } else {
+        res.status(404).json({msg: 'Unable to locate ' + bandName});
       }
     });
   })
@@ -89,7 +111,7 @@ module.exports = (router) => {
       if (!valid) {
         return res.json({status: 'failure'});
       }
-      res.json({token: band.generateToken()});
+      res.json({token: band.generateToken(), name: band.name});
     });
   });
 

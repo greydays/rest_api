@@ -1,20 +1,33 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('AppCtrl', ['$scope', '$http', '$location', 'Auth', function($scope, $http, $location, Auth) {
+  app.controller('AppCtrl', ['$scope', '$http', '$location', 'Auth', 'restService', function($scope, $http, $location, Auth, restService) {
+
+    var mainRoute = 'http://localhost:3000';
+    var showResource = restService('shows');
+
+    var testShow = [{
+      date: 'Mon Apr 30 2016 18:00:00 GMT-0700 (PDT)',
+      venue: 'test palace',
+      bands: 'The Tests',
+      cost: 10,
+      _id: 'testId'
+    }];
 
     $scope.getShow = function() {
       var url = $location.path();
       url = url.split('/');
       var id = url[url.length - 1];
-      $http.get('/shows/' + id).success(function(response) {
+      $http.get(mainRoute + '/shows/' + id)
+      .success(function(response) {
         $scope.show = response;
       });
     };
 
     $scope.getAllShows = function() {
-      $http.get('/shows').success(function(response){
-        $scope.shows = response;
+      $http.get(mainRoute + '/shows').success(function(response){
+        if (response.length == 0) $scope.shows = testShow;
+        else $scope.shows = response;
       });
     };
 
@@ -24,12 +37,6 @@ module.exports = function(app) {
       });
     };
 
-/*    $scope.logMeOut = function() {
-      Auth.signOut();
-      $location.path('/login');
-      console.log('signed out');
-    };*/
-
     $scope.signup = true;
     $scope.submitSignUp = function(band) {
       Auth.createBand(band, function() {
@@ -38,14 +45,7 @@ module.exports = function(app) {
     };
 
     $scope.postShow = function(newShow) {
-      $http({
-        method: 'POST',
-        url: '/shows',
-        headers: {
-          'Authorization': 'Token ' + Auth.getToken()
-        },
-        data: newShow
-      })
+      showResource.create(newShow)
       .success(function (data){
         console.log(data);
         $location.path('/');

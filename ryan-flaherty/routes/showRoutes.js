@@ -31,7 +31,7 @@ module.exports = (router) => {
     });
   })
 
-  .post('/shows', auth, (req, res) => {
+  .post('/shows', /*auth,*/ (req, res) => {
     console.log('/shows POST route hit');
     var show = new Show(req.body);
     show.save(function(err, data) {

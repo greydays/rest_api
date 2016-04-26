@@ -1,12 +1,27 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('headerCtrl', ['$location', 'Auth', function($location, Auth) {
+  app.controller('headerCtrl', ['$location', 'Auth', '$window', function($location, Auth, $window) {
 
-    this.logMeOut = function() {
+    var vm = this;
+    vm.isLoggedIn = false;
+
+    vm.logMeOut = function() {
       Auth.signOut();
+      vm.checkBand();
       $location.path('/login');
-      console.log('signed out');
+    };
+
+    vm.checkBand = function() {
+      if ($window.localStorage.bandName == undefined) {
+        vm.isLoggedIn = false;
+      } else if ($window.localStorage.bandName != 'null') {
+        vm.isLoggedIn = true;
+      } else {
+        vm.isLoggedIn = false;
+      }
+      console.log(vm.isLoggedIn);
+      console.log($window.localStorage.bandName)
     };
 
   }]);
