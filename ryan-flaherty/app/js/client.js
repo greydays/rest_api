@@ -10,7 +10,8 @@ require('./controllers/headerCtrl')(app);
 require('./controllers/editShowCtrl')(app);
 require('./controllers/bandCtrl')(app);
 
-require('./directives/appDirectives')(app);
+require('./directives/headerDir')(app);
+require('./directives/footerDir')(app);
 
 require('./services/auth')(app);
 require('./services/restService')(app);
@@ -20,7 +21,6 @@ app.config(['$routeProvider', function($routeProvider) {
     .when('/shows', {templateUrl: 'html/shows.html'})
     .when('/shows/:_id', {templateUrl: 'html/singleshow.html'})
     .when('/newband', {templateUrl: 'html/newband.html'})
-    .when('/login', {templateUrl: 'html/login.html'})
     .when('/newshow', {templateUrl: 'html/newshow.html'})
     .when('/', {templateUrl: 'html/shows.html'})
     .when('/profile', {templateUrl: 'html/profile.html'})

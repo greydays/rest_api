@@ -9,7 +9,6 @@ module.exports = function(app) {
     vm.logMeOut = function() {
       Auth.signOut();
       vm.checkBand();
-      $location.path('/login');
     };
 
     vm.checkBand = function() {
@@ -20,8 +19,13 @@ module.exports = function(app) {
       } else {
         vm.isLoggedIn = false;
       }
-      console.log(vm.isLoggedIn);
-      console.log($window.localStorage.bandName)
+    };
+
+    vm.submitSignIn = function(band) {
+      Auth.signIn(band, function() {
+        $location.path('/');
+        vm.checkBand();
+      });
     };
 
   }]);

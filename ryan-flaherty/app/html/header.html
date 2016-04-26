@@ -1,14 +1,31 @@
-<header>
+<header data-ng-controller="headerCtrl as header">
   <h1 class="header_logo">Shows and shows</h1>
   <nav>
-    <ul data-ng-controller="headerCtrl as header" data-ng-init="header.checkBand()">
+    <ul data-ng-init="header.checkBand()">
       <li><a href="#/shows">Shows</a></li>
       <li><a href="#/newshow">New Show</a></li>
       <li data-ng-hide="header.isLoggedIn"><a href="#/newband">New Band</a></li>
-      <li data-ng-hide="header.isLoggedIn"><a href="#/login">Login</a></li>
       <li data-ng-show="header.isLoggedIn"><a href="#/profile">Profile</a></li>
       <li><a href data-ng-show="header.isLoggedIn" ng-click="header.logMeOut()">Log Out</a></li>
     </ul>
   </nav>
+  <section data-ng-hide="header.isLoggedIn">
+    <form data-ng-submit="header.submitSignIn(band)">
+    <ul>
+      <li>
+        <label for="band_email">email</label>
+        <input data-ng-model="band.email" id="band_email" type="email" placeholder="you@url.com" required>
+      </li>
+      <li>
+        <label for="band_password">Password</label>
+        <input data-ng-model="band.password" id="band_password" type="password" placeholder="************" required>
+      </li>
+      <li>
+        <button class="button" type="submit">Submit</button>
+      </li>
+    </ul>
+  </form>
+  </section>
+
 </header>
 
