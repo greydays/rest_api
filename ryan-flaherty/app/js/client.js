@@ -15,6 +15,7 @@ require('./directives/footerDir')(app);
 
 require('./services/auth')(app);
 require('./services/restService')(app);
+require('./services/errorHandler')(app);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider

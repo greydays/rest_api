@@ -1,10 +1,11 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('AppCtrl', ['$scope', '$http', '$location', 'Auth', 'restService', function($scope, $http, $location, Auth, restService) {
+  app.controller('AppCtrl', ['$scope', '$http', '$location', 'Auth', 'restService', 'ErrorService', function($scope, $http, $location, Auth, restService, ErrorService) {
 
     var mainRoute = 'http://localhost:3000';
     var showResource = restService('shows');
+    $scope.error = ErrorService();
 
     var testShow = [{
       date: 'Mon Apr 30 2016 18:00:00 GMT-0700 (PDT)',
@@ -19,19 +20,24 @@ module.exports = function(app) {
       url = url.split('/');
       var id = url[url.length - 1];
       $http.get(mainRoute + '/shows/' + id)
-      .success(function(response) {
-        $scope.show = response;
-      });
+        .then(function(response) {
+          $scope.show = response.data;
+          $scope.error = ErrorService(null);
+        }, (err) => {
+          $scope.error = ErrorService('Could not get show');
+        });
     };
 
     $scope.getAllShows = function() {
-      $http.get(mainRoute + '/shows').success(function(response){
-        if (response.length == 0) $scope.shows = testShow;
-        else $scope.shows = response;
-      });
+      $http.get(mainRoute + '/shows')
+        .then(function(response){
+          if (response.length == 0) $scope.shows = testShow;
+          else $scope.shows = response.data;
+        }, (err) => {
+          $scope.error = ErrorService('Could not get shows');
+        });
     };
 
-    $scope.signup = true;
     $scope.submitSignUp = function(band) {
       Auth.createBand(band, function() {
         $location.path('/newshow');
@@ -40,10 +46,12 @@ module.exports = function(app) {
 
     $scope.postShow = function(newShow) {
       showResource.create(newShow)
-      .success(function (data){
-        console.log(data);
-        $location.path('/');
-      });
+        .then(function (data){
+          console.log(data);
+          $location.path('/');
+        }, (err) => {
+          $scope.error = ErrorService('Could not create show');
+        });
     };
 
   }]);

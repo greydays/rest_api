@@ -13,29 +13,30 @@ module.exports = function(app) {
       var url = $location.path();
       url = url.split('/');
       var id = url[url.length - 1];
-      $http.get(mainRoute + '/shows/' + id).success(function(response) {
-        vm.show = response;
-        vm.show.date = new Date(vm.show.date);
-        vm.updateShow = vm.show;
-        vm.cancelShow = angular.copy(vm.show);
-      });
+      $http.get(mainRoute + '/shows/' + id)
+        .then(function(response) {
+          vm.show = response.data;
+          vm.show.date = new Date(vm.show.date);
+          vm.updateShow = vm.show;
+          vm.cancelShow = angular.copy(vm.show);
+        });
     };
 
     vm.putShow = function(updateShow) {
       showResource.update(updateShow)
-      .success(function (data){
-        console.log(data);
-        vm.edit = false;
-        vm.message = 'Show Updated';
-      });
+        .then(function (response){
+          console.log(response.data);
+          vm.edit = false;
+          vm.message = 'Show Updated';
+        });
     };
 
     vm.delShow = function() {
       showResource.remove(vm.show)
-      .success(function (data){
-        console.log(data);
-        $location.path('/');
-      });
+        .then(function (response){
+          console.log(response.data);
+          $location.path('/');
+        });
     };
 
     vm.cancel = function(){
