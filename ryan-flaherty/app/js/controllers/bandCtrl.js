@@ -14,15 +14,15 @@ module.exports = function(app) {
 //if logged profile vs bandid
     vm.getBand = function() {
       $http({
-        method: 'GET',
-        url: mainRoute + '/bands/profile',
+        method: 'POST',
+        url: mainRoute + '/profile',
         headers: {
           'Authorization': 'Token ' + Auth.getToken()
         },
         data: {bandName: vm.bandName}
       })
-      .success(function(response) {
-        vm.band = response;
+      .then(function(response) {
+        vm.band = response.data;
         vm.updateBand = vm.band;
         vm.cancelEdit = angular.copy(vm.band);
       });
@@ -34,8 +34,8 @@ module.exports = function(app) {
 
     vm.putBand = function(updateBand) {
       bandResource.update(updateBand)
-      .success(function (data){
-        console.log(data);
+      .then(function (response){
+        console.log(response.data);
         vm.edit = false;
         vm.message = 'Band Updated';
       });
@@ -43,10 +43,10 @@ module.exports = function(app) {
 
     vm.delBand = function() {
       bandResource.remove(vm.band)
-      .success(function (data){
-        console.log(data);
-        $location.path('/');
-      });
+        .then(function (response){
+          console.log(response.data);
+          $location.path('/');
+        });
     };
 
     vm.cancel = function(){

@@ -16,6 +16,22 @@ module.exports = (router) => {
     });
   })
 
+  .post('/profile', auth, (req, res) => {
+    var bandName = req.body.bandName;
+    console.log('/bands post profile route hit');
+    Band.findOne({name: bandName}, function(err, band) {
+      if (err) {
+        console.log(err);
+        res.status(500).json({msg: 'Internal server error'});
+      }
+      if (band) {
+        res.json(band);
+      } else {
+        res.status(404).json({msg: 'Unable to locate ' + bandName});
+      }
+    });
+  })
+
   .get('/bands/:band', (req, res) => {
     var bandId = req.body.band;
     console.log('/bands GET one route hit');
@@ -34,22 +50,6 @@ module.exports = (router) => {
         });
       } else {
         res.status(404).json({msg: 'Unable to locate ' + bandId});
-      }
-    });
-  })
-
-  .get('/bands/profile', auth, (req, res) => {
-    var bandName = req.body.bandName;
-    console.log('/bands GET profile route hit');
-    Band.findOne({name: bandName}, function(err, band) {
-      if (err) {
-        console.log(err);
-        res.status(500).json({msg: 'Internal server error'});
-      }
-      if (band) {
-        res.json(band);
-      } else {
-        res.status(404).json({msg: 'Unable to locate ' + bandName});
       }
     });
   })
